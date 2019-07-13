@@ -1,0 +1,273 @@
+install.packages("UsingR")
+install.package("dplyr")
+install.packages("dplyr")
+father.son
+library("UsingR")
+father.son
+x = father.son$fheight
+y = father.son$sheight
+n = length(y)
+N = 50
+set.seed(1)
+index = sample(n,N)
+sampledat = father.son[index,]
+x = sampledat$fheight
+y = sampledat$sheight
+betahat = lm(y~x)$coef
+fit = lm(y~x)
+fit$fitted.values
+2^4
+a = sum((y - fit$fitted.values)^2)
+a
+SSR = sum((y - fit$fitted.values)^2)
+cbind(N,x)
+sigma2 = SSR/48
+X = cbind(rep(1,N),x)
+b = solve(t(X),X)
+b = solve(t(X) * X)
+b = solve(t(X) %*% X)
+b
+X
+t(X)
+b
+t(X)%*%X
+t(X)
+c = sigma2 %*% diag(b)
+c
+c = sqrt(c)
+c
+y = [25.9,29.5, 27.9, 25.9,29.9,29.9,30.9,28.9,
+35.9,31.5,31,30.9,30,36.9,41.9,40.5,43.9,
+37.5,37.9,44.5,37.9,38.9,36.9,45.8]
+y <- c(25.9,29.5, 27.9, 25.9,29.9,29.9,30.9,28.9,
+35.9,31.5,31,30.9,30,36.9,41.9,40.5,43.9,
+37.5,37.9,44.5,37.9,38.9,36.9,45.8)
+y
+x <- c(4.91796,5.0208,4.5429,4.5573,5.0597,3.8910,
+5.8980,5.6039,5.8282,5.3003,6.2712,5.9592,
+5.05,8.2464,6.6969,7.7841,9.0384,5.9894,
+7.5422,8.7951,6.0831, 8.3607, 8.14, 9.1416)
+len(x)
+length(x)
+length(y)
+lm(y~x)
+?anova
+fit = lm(y~x)
+anova(fit)
+install.packages("contrast")
+table(spider$leg,spider$type)
+url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/spider_wolff_gorb_2013.csv"
+filename <- "spider_wolff_gorb_2013.csv"
+library(downloader)
+install.packages("downloader")
+library(downloader)
+if (!file.exists(filename)) download(url, filename)
+spider <- read.csv(filename, skip=1)
+species <- factor(c("A","A","B","B"))
+condition <- factor(c("control","treated","control","treated"))
+model.matrix(~ species + condition)
+table(spider$leg,spider$type)
+Y <- spider$friction
+X <- model.matrix(~ type + leg, data=spider)
+beta.hat <- solve(t(X) %*% X) %*% t(X) %*% Y
+t(beta.hat)
+library(contrasts)
+library(contrast)
+install.packages("contrast")
+t(beta.hat)
+library(openintro)
+data
+?data
+install.packages("openintro")
+data(hsb2)
+library(openintro)
+data(hsb2)
+head(hsb2)
+hsb2$id
+hsb2.id
+str(hsb2)
+str(hsb2)
+library(dplyr)
+glimpse(hsb2)
+glimpse(hsb2)
+data(gapminder)
+library(gapminder)
+install.packages("gapminder")
+model = regsubsets(Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins,data=data)
+reg.summary = summary(model)
+par(mfrow=c(2,2))
+plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS",type="l")
+plot(reg.summary$adjr2 ,xlab="Number of Variables ", ylab="Adjusted RSq",type="l")
+plot(reg.summary$bic ,xlab="Number of Variables ",ylab="BIC",type='l')
+plot(reg.summary$cp ,xlab="Number of Variables ",ylab="Cp", type='l')
+data = read.csv("B19.csv")
+setwd("C:/Educational/Johns Hopkins/Statistical Models/Final project")
+data = read.csv("B19.csv")
+colnames(data) <- c("Quality","variety","ph","sulfates", "density",
+"color","pcolor","acolor","anthocyanins",
+"ionization","ionanth")
+data$variety.f = factor(data$variety)
+model = lm("Quality~variety.f + ph + sulfates+density+color+pcolor+acolor + anthocyanins+ionization +
+ionanth",data=data)
+summary(model)
+#run correlation test on all values
+cor(data[,unlist(lapply(data, is.numeric))])
+model = lm("Quality~variety.f + ph + sulfates+density+color+pcolor+acolor + anthocyanins+ionization",data=data)
+summary(model)
+#remove acolor
+model = lm("Quality~variety.f + ph + sulfates+density+color+pcolor+anthocyanins+ionization",data=data)
+summary(model)
+#let's look at the dependent variable on a plot
+plot(data$Quality)
+abline(h=mean(data$Quality),col="Red")
+reduced = lm("Quality~1",data=data)
+summary(reduced)
+model1 = lm("Quality~variety.f + ph + sulfates+color+pcolor+anthocyanins+ionization",data=data)
+anova(model1,model)
+model1 = lm("Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins+ionization",data=data)
+anova(model1,model)
+#new model with color gone
+model = lm("Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins+ionization",data=data)
+summary(model)
+reduced = lm("Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins",data=data)
+summary(reduced)
+anova(reduced,model)
+model = lm("Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins",data=data)
+summary(model)
+qqnorm(model$residuals,
+ylab = "Residuals",
+xlab = "Normal Scores",
+main = "Wine Residuals")
+qqline(model$residuals)
+plot(model$fitted.values,model$residuals)
+abline(0,0)
+plot(model$fitted.values,rstudent(model))
+abline(0,0)
+model = lm("Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins",data=data)
+test =  lm("Quality~ variety.f + ph + density",data)
+summary(test)
+library("leaps")
+#bring back all factors
+model7 = regsubsets(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,data=data)
+reg.summary = summary(model7)
+par(mfrow=c(2,2))
+plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS",type="l")
+plot(reg.summary$adjr2 ,xlab="Number of Variables ", ylab="Adjusted RSq",type="l")
+plot(reg.summary$bic ,xlab="Number of Variables ",ylab="BIC",type='l')
+plot(reg.summary$cp ,xlab="Number of Variables ",ylab="Cp", type='l')
+subsets(model7, statistic="rss")
+library("car")
+subsets(model7, statistic="rss")
+subsets(model7, statistic="adjr2")
+subsets(model7, statistic="cp")
+subsets(model7, statistic="bic")
+subsets(model7, statistic="rss")
+subsets(model7, statistic="adjr2")
+subsets(model7, statistic="cp")
+`subsets(model7, statistic="bic")
+subsets(model7, statistic="bic")
+s
+subsets(model7, statistic="bic")
+null.model = lm(Quality~1,data=data)
+step(null,scope=list(lower=null.model,upper=full.model),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+full.model = lm(Quality+variety.f + ph + sulfates+density+pcolor+acolor + ionization)
+full.model = lm(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization)
+full.model = lm(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="backward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="both")
+null.model = lm(Quality~1,data=data)
+full.model = lm(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+null.model = regsubsets(Quality~1,data=data)
+full.model = regsubsets(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+#exhaustive search
+regsubsets.out <-
+regsubsets(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,
+data = data,
+nbest = 1,       # 1 best model for each number of predictors
+nvmax = NULL,    # NULL for no limit on number of variables
+force.in = NULL, force.out = NULL,
+method = "exhaustive")
+regsubsets.out
+summary(regsubsets.out)
+null.model = lm(Quality~1,data=data)
+full.model = lm(Quality~variety.f + ph + sulfates+density+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="both")
+full.model = lm(Quality~variety.f + ph + sulfates+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="both")
+full6 = lm(Quality~variety.f + ph + sulfates+density + pcolor + anthocyanins,data=data)
+step(null.model,scope=list(lower=null.model,upper=full6),direction="both")
+step(null.model,scope=list(lower=null.model,upper=full6),direction="backward")
+step(null.model,scope=list(lower=null.model,upper=full6),direction="backward")
+step(null.model,scope=list(lower=null.model,upper=full6),direction="forward")
+test6 = lm(Quality~variety.f + ph + sulfates+ pcolor + anthocyanins,data=data)
+step(null.model,scope=list(lower=null.model,upper=full6),direction="forward")
+test6 = lm(Quality~variety.f + ph + sulfates+ pcolor + anthocyanins,data=data)
+step(null.model,scope=list(lower=null.model,upper=test6),direction="forward")
+test6 = lm(Quality~variety.f + ph + sulfates+ pcolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=test6),direction="forward")
+test6 = lm(Quality~variety.f + ph + sulfates+density + acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=test6),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+test6 = lm(Quality~variety.f + ph + sulfates+pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=test6),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+full.model = lm(Quality~variety.f + ph + sulfates+density + pcolor+acolor + ionization,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="both")
+test6 = lm(Quality~variety.f + ph + sulfates+density+pcolor + anthocyanins,data=data)
+step(null.model,scope=list(lower=null.model,upper=test6),direction="both")
+step(null.model,scope=list(lower=null.model,upper=test6),direction="forward")
+step(null.model,scope=list(lower=null.model,upper=test6),direction="backwards")
+step(null.model,scope=list(lower=null.model,upper=test6),direction="backward")
+step(full.model,data=data,direction="backward")
+step(null.model,scope=list(upper=full.model),data=data,direction="both")
+null.model = lm(Quality~1,data=data)
+full.model = lm(Quality~variety.f + ph + sulfates+density + pcolor+acolor + ionization,data=data)
+test6 = lm(Quality~variety.f + ph + sulfates+density+pcolor + anthocyanins,data=data)
+step(null.model,scope=list(lower=null.model,upper=full.model),direction="forward")
+step(full.model,data=data,direction="backward")
+step(null.model,scope=list(upper=full.model),data=data,direction="both")
+#6 factor model
+model = regsubsets(Quality~variety.f + ph + sulfates+density+pcolor+anthocyanins,data=data)
+reg.summary = summary(model)
+par(mfrow=c(2,2))
+plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS",type="l")
+plot(reg.summary$adjr2 ,xlab="Number of Variables ", ylab="Adjusted RSq",type="l")
+plot(reg.summary$bic ,xlab="Number of Variables ",ylab="BIC",type='l')
+plot(reg.summary$cp ,xlab="Number of Variables ",ylab="Cp", type='l')
+test =  lm("Quality~ variety.f + ph ",data)
+summary(test)
+test =  lm("Quality~ variety.f ",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph +sulfates",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph +sulfates+density",data)
+summary(test)
+source('C:/Educational/Johns Hopkins/Statistical Models/Final project/final report.R', echo=TRUE)
+test =  lm("Quality~ variety.f +ph +sulfates+density+pcolor",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph +sulfates+density+pcolor+acolor",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph +sulfates+density+pcolor+acolor+ionization",data)
+summary(test)
+test =  lm("Quality~ variety.f +sulfates+density+pcolor+acolor+ionization",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph+density+pcolor+acolor+ionization",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph+density+pcolor+acolor",data)
+summary(test)
+test =  lm("Quality~ variety.f +density+pcolor+acolor",data)
+summary(test)
+test =  lm("Quality~ variety.f +ph+density+pcolor",data)
+summary(test)
+#final model search
+model1 = lm("Quality~variety.f + ph + sulfates+ionization",data = data)
+summary(model1)
